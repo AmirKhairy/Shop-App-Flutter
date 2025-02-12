@@ -52,7 +52,8 @@ class MyApp extends StatelessWidget {
             ..getHomeData()
             ..getCatigoriesData()
             ..getFavoritesData()
-            ..getProfileData(),
+            ..getProfileData()
+            ..getCarts(),
         ),
       ],
       child: BlocBuilder<HomeBloc, HomeStates>(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Data_Models/catigory_products_model.dart';
+import 'package:shop_app/Data_Models/get_carts_model/get_carts_model.dart';
 import 'package:shop_app/Data_Models/product_details_model.dart';
 import 'package:shop_app/Shared/cache_helper.dart';
 import 'package:shop_app/Shared/constants.dart';
@@ -43,7 +44,6 @@ class HomeBloc extends Cubit<HomeStates> {
   void changeReadMore() {
     readMore = !readMore;
     emit(ChangeReadMoreButtonState());
-    
   }
 
   HomeModel? homeModel;
@@ -239,5 +239,40 @@ class HomeBloc extends Cubit<HomeStates> {
     isDark = !isDark;
     CacheHelper.setData(key: 'isDark', value: isDark);
     emit(ChangeThemeMode());
+  }
+
+  GetCartsModel? getCartsModel;
+  void getCarts() {
+    emit(GetCartsLoadingState());
+    DioHelper.getData(
+      url: CARTS,
+      token: token,
+    ).then((onValue) {
+      getCartsModel = GetCartsModel.fromJson(onValue?.data);
+      emit(GetCartsSuccessState());
+    }).catchError((onError) {
+      print('Get Cart Error is : $onError');
+      emit(GetCartsErrorState());
+    });
+  }
+
+  void increaseItemQuantity({
+    required int id,
+    required int quantity,
+  }) {
+    emit(EditItemQuantityLoadingState());
+    DioHelper.putData(
+      url: '$UpdateCart$id',
+      token: token,
+      data: {
+        'quantity': quantity,
+      },
+    ).then((onValue) {
+      getCarts();
+      emit(EditItemQuantitySuccessState());
+    }).catchError((onError) {
+      print('Increase Item Quantity Error is : $onError');
+      emit(EditItemQuantityErrorState());
+    });
   }
 }

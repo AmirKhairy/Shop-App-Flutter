@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Shared/components.dart';
 import 'package:shop_app/Shared/constants.dart';
+import 'package:shop_app/Shop_Layout/Cart_Page/cart_screen.dart';
 import 'package:shop_app/Shop_Layout/HomeCubit/home_bloc.dart';
 import 'package:shop_app/Shop_Layout/HomeCubit/home_states.dart';
 import 'package:shop_app/Shop_Layout/Search_Page/search_screen.dart';
@@ -15,6 +16,7 @@ class HomeLayout extends StatelessWidget {
     HomeBloc.get(context).getCatigoriesData();
     HomeBloc.get(context).getFavoritesData();
     HomeBloc.get(context).getProfileData();
+    HomeBloc.get(context).getCarts();
     return BlocConsumer<HomeBloc, HomeStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -29,6 +31,16 @@ class HomeLayout extends StatelessWidget {
                     ?.copyWith(fontSize: 25),
               ),
               actions: [
+                IconButton(
+                  onPressed: () {
+                    HomeBloc.get(context).getCarts();
+                    navigatorTo(context: context, pageRoute: CartScreen());
+                  },
+                  icon: const Icon(
+                    Icons.shopping_cart,
+                    size: 30,
+                  ),
+                ),
                 IconButton(
                   onPressed: () {
                     navigatorTo(context: context, pageRoute: SearchScreen());

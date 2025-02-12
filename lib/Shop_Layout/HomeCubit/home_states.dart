@@ -73,3 +73,15 @@ class GetProductDetailsLoadingState extends HomeStates {}
 class GetProductDetailsSuccessState extends HomeStates {}
 
 class GetProductDetailsErrorState extends HomeStates {}
+
+class GetCartsLoadingState extends HomeStates {}
+
+class GetCartsSuccessState extends HomeStates {}
+
+class GetCartsErrorState extends HomeStates {}
+
+class EditItemQuantityLoadingState extends HomeStates {}
+
+class EditItemQuantitySuccessState extends HomeStates {}
+
+class EditItemQuantityErrorState extends HomeStates {}

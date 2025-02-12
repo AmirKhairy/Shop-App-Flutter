@@ -30,15 +30,22 @@ String LOGOUT = 'logout';
 
 String PRODUCT_DETAILS = 'products';
 
+String CARTS = 'carts';
+
+String UpdateCart = 'carts/';
+
 String token = CacheHelper.getData(key: 'token');
 
-void showToast({required String msg,required Color color,}){
-    Fluttertoast.showToast(
-          msg: msg,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 5,
-          backgroundColor:color,
-          textColor: Colors.white,
-          fontSize: 16.0);
+void showToast({
+  required String msg,
+  required Color color,
+}) {
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 5,
+      backgroundColor: color,
+      textColor: Colors.white,
+      fontSize: 16.0);
 }
