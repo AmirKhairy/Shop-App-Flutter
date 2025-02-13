@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:shop_app/Auth/Login/Login_Cubit/login_states.dart';
 import 'package:shop_app/Data_Models/login_model.dart';
+import 'package:shop_app/Shared/cache_helper.dart';
 import 'package:shop_app/Shared/constants.dart';
 import 'package:shop_app/Shared/dio_helper.dart';
 
@@ -28,6 +31,8 @@ class LoginBloc extends Cubit<LoginStates> {
     }).then((onValue) {
       loginModel = LoginModel.fromJson(onValue?.data);
       token = loginModel.data?.token ?? '';
+      customerId = loginModel.data?.id.toString() ?? '';
+
       emit(LoginSuccessApiState(loginModel: loginModel));
     }).catchError((onError) {
       print(onError.toString());

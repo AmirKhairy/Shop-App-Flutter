@@ -65,44 +65,50 @@ class SearchScreen extends StatelessWidget {
                   height: 20,
                 ),
                 ConditionalBuilder(
-                  condition: state is! SearchLoadingDataState,
-                  builder: (context) =>
-                      HomeBloc.get(context).searchModel?.data?.data?.length != 0
-                          ? Expanded(
-                              child: ListView.separated(
-                                physics: const BouncingScrollPhysics(),
-                                itemBuilder: (context, index) =>
-                                    searchItemBuilder(
-                                  HomeBloc.get(context)
-                                      .searchModel!
-                                      .data!
-                                      .data![index],
-                                  context,
-                                ),
-                                separatorBuilder: (context, index) =>
-                                    verticalSeperatorBuilder(
-                                  height: 3,
-                                  color: Colors.white,
-                                ),
-                                itemCount: HomeBloc.get(context)
-                                        .searchModel
-                                        ?.data
-                                        ?.data
-                                        ?.length ??
-                                    0,
+                    condition: state is! SearchLoadingDataState,
+                    builder: (context) => HomeBloc.get(context)
+                                .searchModel
+                                ?.data
+                                ?.data
+                                ?.length !=
+                            0
+                        ? Expanded(
+                            child: ListView.separated(
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) =>
+                                  searchItemBuilder(
+                                HomeBloc.get(context)
+                                    .searchModel!
+                                    .data!
+                                    .data![index],
+                                context,
                               ),
-                            )
-                          : Center(
-                              child: Text(
-                                'No Items',
-                                style: Theme.of(context).textTheme.displayLarge,
+                              separatorBuilder: (context, index) =>
+                                  verticalSeperatorBuilder(
+                                height: 3,
+                                color: Colors.white,
                               ),
+                              itemCount: HomeBloc.get(context)
+                                      .searchModel
+                                      ?.data
+                                      ?.data
+                                      ?.length ??
+                                  0,
                             ),
-                  fallback: (context) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: CircularProgressIndicator(color: Theme.of(context).progressIndicatorTheme.color,),
-                  )
-                ),
+                          )
+                        : Center(
+                            child: Text(
+                              'No Items',
+                              style: Theme.of(context).textTheme.displayLarge,
+                            ),
+                          ),
+                    fallback: (context) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: CircularProgressIndicator(
+                            color:
+                                Theme.of(context).progressIndicatorTheme.color,
+                          ),
+                        )),
               ],
             ),
           ),
@@ -126,8 +132,10 @@ class SearchScreen extends StatelessWidget {
                 height: 100,
                 width: 100,
                 fit: BoxFit.cover,
-                placeholder: (context, url) =>  Center(
-                  child: CircularProgressIndicator(color: Theme.of(context).progressIndicatorTheme.color,),
+                placeholder: (context, url) => Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).progressIndicatorTheme.color,
+                  ),
                 ),
                 errorWidget: (context, url, error) => const Icon(
                   Icons.error,

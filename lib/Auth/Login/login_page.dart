@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +28,14 @@ class LoginPage extends StatelessWidget {
           if (state is LoginSuccessApiState) {
             if (state.loginModel.status) {
               CacheHelper.setData(
+                      key: 'customerId',
+                      value: state.loginModel.data?.id.toString())
+                  .then(
+                (value) {
+                  log(state.loginModel.data!.id.toString());
+                },
+              );
+              CacheHelper.setData(
                       key: 'token', value: state.loginModel.data?.token)
                   .then((onValue) {
                 token = state.loginModel.data!.token;
@@ -34,6 +44,7 @@ class LoginPage extends StatelessWidget {
                   pageRoute: const HomeLayout(),
                 );
               });
+
               showToast(
                 msg: state.loginModel.message,
                 color: Colors.green,

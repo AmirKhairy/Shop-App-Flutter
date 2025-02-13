@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Data_Models/add_or_remove_product_in_cart_with_product_id/add_or_remove_product_in_cart_with_product_id.dart';
 import 'package:shop_app/Data_Models/catigory_products_model.dart';
 import 'package:shop_app/Data_Models/get_carts_model/get_carts_model.dart';
 import 'package:shop_app/Data_Models/product_details_model.dart';
+import 'package:shop_app/Data_Models/stripe_models/payment_intent_input_model/payment_intent_input_model.dart';
 import 'package:shop_app/Shared/cache_helper.dart';
 import 'package:shop_app/Shared/constants.dart';
 import 'package:shop_app/Shared/dio_helper.dart';
+import 'package:shop_app/Shared/payment/stripe_service.dart';
 import 'package:shop_app/Shop_Layout/HomeCubit/home_states.dart';
 import 'package:shop_app/Data_Models/edit_profile_model.dart';
 import 'package:shop_app/Data_Models/get_profile_model.dart';
@@ -273,6 +278,50 @@ class HomeBloc extends Cubit<HomeStates> {
     }).catchError((onError) {
       print('Increase Item Quantity Error is : $onError');
       emit(EditItemQuantityErrorState());
+    });
+  }
+
+  AddOrRemoveProductInCartWithProductId?
+      addOrRemoveProductInCartWithProductIdmodel;
+  void addOrDeleteItemInCart({required int productId}) {
+    emit(AddOrDeleteItemInCartLoadingState());
+    DioHelper.postData(
+      url: AddOrDelelteItemInCart,
+      token: token,
+      data: {
+        'product_id': productId,
+      },
+    ).then((onValue) {
+      addOrRemoveProductInCartWithProductIdmodel =
+          AddOrRemoveProductInCartWithProductId.fromJson(onValue!.data);
+      getCarts();
+      getProductDetails(productId: productId);
+
+      emit(AddOrDeleteItemInCartSuccessState());
+    }).catchError((onError) {
+      print('Add Or Delete Item In Cart Error is : $onError');
+      emit(AddOrDeleteItemInCartErrorState());
+    });
+  }
+
+  final StripeService stripeService = StripeService();
+  PaymentIntentInputModel? paymentIntentInputModel;
+  Future? makePayment({
+    required String amount,
+  }) {
+    emit(CardPaymentLoadingState());
+    paymentIntentInputModel = PaymentIntentInputModel(
+      customerId: customerId,
+      amount: amount,
+      currency: 'USD',
+    );
+    stripeService
+        .makePayment(paymentIntentInputModel: paymentIntentInputModel!)
+        .then((onValue) {
+      emit(CardPaymentSuccessState());
+    }).catchError((onError) {
+      log(onError);
+      emit(CardPaymentErrorState());
     });
   }
 }

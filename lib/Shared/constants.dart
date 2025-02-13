@@ -32,9 +32,13 @@ String PRODUCT_DETAILS = 'products';
 
 String CARTS = 'carts';
 
+String AddOrDelelteItemInCart = 'carts';
+
 String UpdateCart = 'carts/';
 
 String token = CacheHelper.getData(key: 'token');
+
+String customerId=CacheHelper.getData(key: 'customerId');
 
 void showToast({
   required String msg,

@@ -34,7 +34,8 @@ class HomeLayout extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     HomeBloc.get(context).getCarts();
-                    navigatorTo(context: context, pageRoute: CartScreen());
+                    navigatorTo(
+                        context: context, pageRoute: const CartScreen());
                   },
                   icon: const Icon(
                     Icons.shopping_cart,

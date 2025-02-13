@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/Auth/Login/login_page.dart';
 import 'package:shop_app/On_Boarding/on_Boarding_layout/on_boarding_layout.dart';
 import 'package:shop_app/Shared/Themes/themes.dart';
@@ -30,6 +31,8 @@ void main() async {
     }
   }
 
+  Stripe.publishableKey =
+      'pk_test_51QqbKUH937DsZA0GBfn1dFoRyp5NJKB7X1OEb7mEZm95BAAEzgBcZzkoZl3ASsHOazYs9v2ApT9eyRlOa8uAEU0U00qSbBJNeI';
   runApp(MyApp(
     openScreen: openScreen,
   ));

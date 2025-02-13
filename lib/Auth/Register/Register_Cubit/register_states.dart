@@ -2,7 +2,7 @@ import 'package:shop_app/Data_Models/register_model.dart';
 
 abstract class RegisterStates {}
 
-class RegisterInitialState extends RegisterStates{}
+class RegisterInitialState extends RegisterStates {}
 
 class RegisterChangeRegisterPasswordIcon extends RegisterStates {}
 
@@ -19,4 +19,3 @@ class RegisterErrorApiState extends RegisterStates {
 
   RegisterErrorApiState({required this.error});
 }
-

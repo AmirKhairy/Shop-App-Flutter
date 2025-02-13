@@ -198,7 +198,7 @@ class Products extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     SizedBox(
-                      width: width(context)*.5,
+                      width: width(context) * .5,
                       child: Row(
                         children: [
                           Text(
@@ -219,7 +219,8 @@ class Products extends StatelessWidget {
                                   .labelMedium
                                   ?.copyWith(
                                     decoration: TextDecoration.lineThrough,
-                                    color: Colors.grey,fontSize: 14,
+                                    color: Colors.grey,
+                                    fontSize: 14,
                                   ),
                             ),
                           const Spacer(),

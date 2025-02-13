@@ -23,19 +23,25 @@ void logOut(context, pageroute) {
   });
 }
 
-Widget horizentalSeperatorBuilder({required double width ,required Color color,}) => Container(
-  width: width,
-  height: 1,
-  color: Colors.white,
-);
+Widget horizentalSeperatorBuilder({
+  required double width,
+  required Color color,
+}) =>
+    Container(
+      width: width,
+      height: 1,
+      color: Colors.white,
+    );
 
-Widget verticalSeperatorBuilder({required double height,required Color color,}) => Padding(
-  padding: const EdgeInsets.only(left: 15),
-  child: Container(
-    width: 1,
-    height: height,
-    color: color,
-  ),
-);
-
-
+Widget verticalSeperatorBuilder({
+  required double height,
+  required Color color,
+}) =>
+    Padding(
+      padding: const EdgeInsets.only(left: 15),
+      child: Container(
+        width: 1,
+        height: height,
+        color: color,
+      ),
+    );

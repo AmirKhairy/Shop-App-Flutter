@@ -12,7 +12,22 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is AddOrDeleteItemInCartSuccessState) {
+          showToast(
+              msg: HomeBloc.get(context)
+                  .addOrRemoveProductInCartWithProductIdmodel!
+                  .message!,
+              color: Colors.green);
+        }
+        if (state is AddOrDeleteItemInCartErrorState) {
+          showToast(
+              msg: HomeBloc.get(context)
+                  .addOrRemoveProductInCartWithProductIdmodel!
+                  .message!,
+              color: Colors.red);
+        }
+      },
       builder: (context, state) {
         var productDetailsModel = HomeBloc.get(context).productDetailsModel;
 
@@ -75,13 +90,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                 (imageUrl) => CachedNetworkImage(
                                   imageUrl: imageUrl,
                                   width: width(context),
-                                  
                                   placeholder: (context, url) => Center(
                                     child: CircularProgressIndicator(
                                       color: defualLightColor,
                                     ),
                                   ),
-                                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                 ),
                               )
                               .toList(),
@@ -145,6 +160,19 @@ class ProductDetailsScreen extends StatelessWidget {
                                     color: Colors.grey,
                                   ),
                         ),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          HomeBloc.get(context).addOrDeleteItemInCart(
+                              productId: productDetailsModel.data!.id!);
+                        },
+                        icon: Icon(
+                          productDetailsModel.data!.inCart! == true
+                              ? Icons.shopping_cart
+                              : Icons.add_shopping_cart,
+                          color: Colors.deepOrange,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(

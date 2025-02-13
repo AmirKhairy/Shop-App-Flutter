@@ -31,8 +31,12 @@ class Product {
   Product.fromJson(Map<String, dynamic> json) {
     id = (json['id'] is double) ? json['id'].toInt() : json['id'];
     price = (json['price'] is double) ? json['price'].toInt() : json['price'];
-    oldPrice = (json['old_price'] is double) ? json['old_price'].toInt() : json['old_price'];
-    discount = (json['discount'] is double) ? json['discount'].toInt() : json['discount'];
+    oldPrice = (json['old_price'] is double)
+        ? json['old_price'].toInt()
+        : json['old_price'];
+    discount = (json['discount'] is double)
+        ? json['discount'].toInt()
+        : json['discount'];
     image = json['image'];
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Data_Models/get_carts_model/cart_item.dart';
 import 'package:shop_app/Shared/components.dart';
 import 'package:shop_app/Shared/constants.dart';
+import 'package:shop_app/Shared/payment/stripe_service.dart';
 import 'package:shop_app/Shop_Layout/HomeCubit/home_bloc.dart';
 import 'package:shop_app/Shop_Layout/HomeCubit/home_states.dart';
 import 'package:shop_app/Shop_Layout/Home_Page/product_details_screen.dart';
@@ -15,7 +16,28 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is AddOrDeleteItemInCartSuccessState) {
+          showToast(
+              msg: HomeBloc.get(context)
+                  .addOrRemoveProductInCartWithProductIdmodel!
+                  .message!,
+              color: Colors.green);
+        }
+        if (state is AddOrDeleteItemInCartErrorState) {
+          showToast(
+              msg: HomeBloc.get(context)
+                  .addOrRemoveProductInCartWithProductIdmodel!
+                  .message!,
+              color: Colors.red);
+        }
+        if (state is EditItemQuantitySuccessState) {
+          showToast(msg: 'Quantity Updated Successfully', color: Colors.green);
+        }
+        if (state is EditItemQuantityErrorState) {
+          showToast(msg: 'Error Updating Quantity', color: Colors.green);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -29,42 +51,108 @@ class CartScreen extends StatelessWidget {
           body: ConditionalBuilder(
             condition: !(state is GetCartsLoadingState ||
                 state is EditItemQuantityLoadingState),
-            builder: (context) =>
-                HomeBloc.get(context).getCartsModel?.data?.cartItems?.length !=
-                        0
-                    ? Column(
-                        children: [
-                          Expanded(
-                            child: ListView.separated(
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (context, index) => cartItemBuilder(
-                                  HomeBloc.get(context)
-                                      .getCartsModel!
-                                      .data!
-                                      .cartItems![index],
-                                  context),
-                              separatorBuilder: (context, index) =>
-                                  verticalSeperatorBuilder(
-                                height: 2,
-                                color: Colors.white,
-                              ),
-                              itemCount: HomeBloc.get(context)
+            builder: (context) => HomeBloc.get(context)
+                        .getCartsModel
+                        ?.data
+                        ?.cartItems
+                        ?.length !=
+                    0
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) => cartItemBuilder(
+                              HomeBloc.get(context)
                                   .getCartsModel!
                                   .data!
-                                  .cartItems!
-                                  .length,
-                            ),
+                                  .cartItems![index],
+                              context),
+                          separatorBuilder: (context, index) =>
+                              verticalSeperatorBuilder(
+                            height: 2,
+                            color: Colors.white,
                           ),
-                          Text(
-                              'Total: ${HomeBloc.get(context).getCartsModel!.data!.total} \$'),
-                        ],
-                      )
-                    : Center(
-                        child: Text(
-                          'No Items In Cart',
-                          style: Theme.of(context).textTheme.displayLarge,
+                          itemCount: HomeBloc.get(context)
+                              .getCartsModel!
+                              .data!
+                              .cartItems!
+                              .length,
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          height: 50,
+                          width: double.infinity,
+                          child: Center(
+                            child: Text(
+                              'Total: ${HomeBloc.get(context).getCartsModel!.data!.total} \$',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          int? amount = HomeBloc.get(context)
+                                  .getCartsModel!
+                                  .data!
+                                  .total! *
+                              100;
+                          if (amount > 0) {
+                            HomeBloc.get(context).makePayment(
+                              amount: amount.toString(),
+                            );
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 10,
+                            left: 20,
+                            right: 20,
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: defualLightColor,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            height: 50,
+                            width: double.infinity,
+                            child: Center(
+                              child: state is CardPaymentLoadingState
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.orange,
+                                    )
+                                  : const Text(
+                                      'Purchase',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : Center(
+                    child: Text(
+                      'No Items In Cart',
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ),
+                  ),
             fallback: (context) => Center(
               child: CircularProgressIndicator(
                 color: defualLightColor,
@@ -216,9 +304,13 @@ class CartScreen extends StatelessWidget {
                               );
                             },
                           ),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              HomeBloc.get(context).addOrDeleteItemInCart(
+                                productId: model.product!.id!,
+                              );
+                            },
                             icon: const Icon(
                               Icons.delete,
                               size: 20,

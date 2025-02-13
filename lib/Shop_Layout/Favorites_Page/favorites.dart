@@ -163,7 +163,4 @@ class Favorites extends StatelessWidget {
           ),
         ),
       );
-
-
-
 }

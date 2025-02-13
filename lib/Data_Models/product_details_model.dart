@@ -1,6 +1,6 @@
 class ProductDetailsModel {
   bool? status;
-  String? message;  
+  String? message;
   Data? data;
 
   ProductDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -12,9 +12,9 @@ class ProductDetailsModel {
 
 class Data {
   int? id;
-  double? price;  
-  double? oldPrice;  
-  double? discount;  
+  double? price;
+  double? oldPrice;
+  double? discount;
   String? image;
   String? name;
   String? description;
@@ -24,7 +24,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    price = (json['price'] as num?)?.toDouble();  
+    price = (json['price'] as num?)?.toDouble();
     oldPrice = (json['old_price'] as num?)?.toDouble();
     discount = (json['discount'] as num?)?.toDouble();
     image = json['image'];

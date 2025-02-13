@@ -209,7 +209,6 @@ ThemeData darkTheme = ThemeData(
     color: Color.fromARGB(255, 249, 89, 0),
     linearMinHeight: 5,
     linearTrackColor: Color.fromARGB(255, 249, 89, 0),
-    
   ),
   scaffoldBackgroundColor: const Color.fromARGB(255, 35, 59, 93),
   textTheme: const TextTheme(
@@ -303,5 +302,4 @@ ThemeData darkTheme = ThemeData(
     backgroundColor: Color.fromARGB(255, 249, 89, 0),
     foregroundColor: Color.fromARGB(255, 35, 59, 93),
   ),
-  
 );

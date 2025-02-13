@@ -33,6 +33,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
       },
     ).then((onValue) {
       registerModel = RegisterModel.fromJson(onValue?.data);
+      token = registerModel?.data?.token ?? '';
+      customerId = registerModel?.data?.id.toString() ?? '';
       emit(RegisterSuccessApiState(registerModel: registerModel!));
     }).catchError((onError) {
       print(onError.toString());

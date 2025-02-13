@@ -19,5 +19,3 @@ class LoginErrorApiState extends LoginStates {
 
   LoginErrorApiState({required this.error});
 }
-
-

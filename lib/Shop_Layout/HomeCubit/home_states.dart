@@ -85,3 +85,15 @@ class EditItemQuantityLoadingState extends HomeStates {}
 class EditItemQuantitySuccessState extends HomeStates {}
 
 class EditItemQuantityErrorState extends HomeStates {}
+
+class AddOrDeleteItemInCartLoadingState extends HomeStates {}
+
+class AddOrDeleteItemInCartSuccessState extends HomeStates {}
+
+class AddOrDeleteItemInCartErrorState extends HomeStates {}
+
+class CardPaymentSuccessState extends HomeStates {}
+
+class CardPaymentLoadingState extends HomeStates {}
+
+class CardPaymentErrorState extends HomeStates {}
