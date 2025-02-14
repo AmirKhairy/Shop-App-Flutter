@@ -55,7 +55,7 @@ class HomeBloc extends Cubit<HomeStates> {
 
   void getHomeData() {
     emit(HomeLoadintDataState());
-    DioHelper.getData(url: HOME, token: token).then((onValue) {
+    DioHelper.getData(url: hOME, token: token).then((onValue) {
       homeModel = HomeModel.fromJson(onValue?.data);
       for (var element in homeModel!.data!.products) {
         favorites.addAll({
@@ -64,18 +64,18 @@ class HomeBloc extends Cubit<HomeStates> {
       }
       emit(HomeSuccessDataState());
     }).catchError((onError) {
-      print(onError);
+      log(onError);
       emit(HomeErrorDataState());
     });
   }
 
   CatigoriesModel? catigoriesModel;
   void getCatigoriesData() {
-    DioHelper.getData(url: CATIGORIES, token: token).then((onValue) {
+    DioHelper.getData(url: cATIGORIES, token: token).then((onValue) {
       catigoriesModel = CatigoriesModel.fromJson(onValue?.data);
       emit(CatigoriesSuccessDataState());
     }).catchError((onError) {
-      print(onError);
+      log(onError);
       emit(CatigoriesErrorDataState());
     });
   }
@@ -84,11 +84,11 @@ class HomeBloc extends Cubit<HomeStates> {
 
   void getFavoritesData() {
     emit(FavoritesLoadingDataState());
-    DioHelper.getData(url: FAVORITES, token: token).then((onValue) {
+    DioHelper.getData(url: fAVORITES, token: token).then((onValue) {
       favoritesModel = GetFavoritesModel.fromJson(onValue?.data);
       emit(FavoritesSuccessDataState());
     }).catchError((onError) {
-      print('Get Favorite Items Error is : $onError');
+      log('Get Favorite Items Error is : $onError');
       emit(FavoritesErrorDataState());
     });
   }
@@ -99,7 +99,7 @@ class HomeBloc extends Cubit<HomeStates> {
     favorites[id] = !favorites[id]!;
     emit(ChangeFavIconState());
     DioHelper.postData(
-      url: FAVORITES,
+      url: fAVORITES,
       data: {
         'product_id': id,
         'token': token,
@@ -120,7 +120,7 @@ class HomeBloc extends Cubit<HomeStates> {
         );
       }
     }).catchError((onError) {
-      print('Change favorite item Error :${onError.toString()}');
+      log('Change favorite item Error :${onError.toString()}');
       favorites[id] = !favorites[id]!;
       emit(ChangeFavIconState());
       showToast(
@@ -135,12 +135,12 @@ class HomeBloc extends Cubit<HomeStates> {
   void getProfileData() {
     emit(GetProfileLoadingDataState());
     DioHelper.getData(
-      url: PROFILE,
+      url: pROFILE,
       token: token,
     ).then((onValue) {
       profileModel = GetProfileModel.fromJson(onValue!.data);
     }).catchError((onError) {
-      print(onError.toString());
+      log(onError.toString());
       emit(GetProfileErrorDataState());
     });
   }
@@ -153,7 +153,7 @@ class HomeBloc extends Cubit<HomeStates> {
   }) {
     emit(UpdateProfileLoadingDataState());
     DioHelper.putData(
-      url: UPDATE_PROFILE,
+      url: uPDATEPROFILE,
       data: {
         'name': name,
         'phone': phone,
@@ -165,7 +165,7 @@ class HomeBloc extends Cubit<HomeStates> {
       getProfileData();
       emit(UpdateProfileSuccessDataState(profileModel: updateProfileModel!));
     }).catchError((onError) {
-      print(onError.toString());
+      log(onError.toString());
       emit(UpdateProfileErrorDataState());
     });
   }
@@ -173,7 +173,7 @@ class HomeBloc extends Cubit<HomeStates> {
   void logout() {
     emit(LogoutLoadingDataState());
     DioHelper.postData(
-      url: LOGOUT,
+      url: lOGOUT,
       data: {},
       token: token,
     ).then((onValue) {
@@ -181,7 +181,7 @@ class HomeBloc extends Cubit<HomeStates> {
       token = '';
       emit(LogoutSuccessDataState());
     }).catchError((onError) {
-      print(onError.toString());
+      log(onError.toString());
       emit(LogoutErrorDataState());
     });
   }
@@ -191,14 +191,14 @@ class HomeBloc extends Cubit<HomeStates> {
   void getSearchItmes({required String text}) {
     emit(SearchLoadingDataState());
     DioHelper.postData(
-      url: SEARCH,
+      url: sEARCH,
       token: token,
       data: {'text': text},
     ).then((onValue) {
       searchModel = SearchModel.fromJson(onValue?.data);
       emit(SearchSuccessDataState());
     }).catchError((onError) {
-      print('Get Search Items Error is : $onError');
+      log('Get Search Items Error is : $onError');
       emit(SearchErrorDataState());
     });
   }
@@ -209,13 +209,13 @@ class HomeBloc extends Cubit<HomeStates> {
   }) {
     emit(GetCategoriesProductsLoadingState());
     DioHelper.getData(
-        url: PRODUCT_DETAILS,
+        url: pRODUCTDETAILS,
         token: token,
         query: {'category_id': '$id'}).then((onValue) {
       catigoriesproductsModel = CategoryProductsModel.fromJson(onValue?.data);
       emit(GetCategoriesProductsSuccessState());
     }).catchError((onError) {
-      print('Get Catigories Products Error is : $onError');
+      log('Get Catigories Products Error is : $onError');
       emit(GetCategoriesProductsErrorState());
     });
   }
@@ -227,14 +227,14 @@ class HomeBloc extends Cubit<HomeStates> {
   }) {
     emit(GetProductDetailsLoadingState());
     DioHelper.getData(
-      url: '$PRODUCT_DETAILS/$productId',
+      url: '$pRODUCTDETAILS/$productId',
       token: token,
       query: {'product_id': '$productId'},
     ).then((onValue) {
       productDetailsModel = ProductDetailsModel.fromJson(onValue?.data);
       emit(GetProductDetailsSuccessState());
     }).catchError((onError) {
-      print('Get Product Details Error: $onError');
+      log('Get Product Details Error: $onError');
       emit(GetProductDetailsErrorState());
     });
   }
@@ -250,13 +250,13 @@ class HomeBloc extends Cubit<HomeStates> {
   void getCarts() {
     emit(GetCartsLoadingState());
     DioHelper.getData(
-      url: CARTS,
+      url: cARTS,
       token: token,
     ).then((onValue) {
       getCartsModel = GetCartsModel.fromJson(onValue?.data);
       emit(GetCartsSuccessState());
     }).catchError((onError) {
-      print('Get Cart Error is : $onError');
+      log('Get Cart Error is : $onError');
       emit(GetCartsErrorState());
     });
   }
@@ -267,7 +267,7 @@ class HomeBloc extends Cubit<HomeStates> {
   }) {
     emit(EditItemQuantityLoadingState());
     DioHelper.putData(
-      url: '$UpdateCart$id',
+      url: '$updateCart$id',
       token: token,
       data: {
         'quantity': quantity,
@@ -276,7 +276,7 @@ class HomeBloc extends Cubit<HomeStates> {
       getCarts();
       emit(EditItemQuantitySuccessState());
     }).catchError((onError) {
-      print('Increase Item Quantity Error is : $onError');
+      log('Increase Item Quantity Error is : $onError');
       emit(EditItemQuantityErrorState());
     });
   }
@@ -286,7 +286,7 @@ class HomeBloc extends Cubit<HomeStates> {
   void addOrDeleteItemInCart({required int productId}) {
     emit(AddOrDeleteItemInCartLoadingState());
     DioHelper.postData(
-      url: AddOrDelelteItemInCart,
+      url: addOrDelelteItemInCart,
       token: token,
       data: {
         'product_id': productId,
@@ -299,7 +299,7 @@ class HomeBloc extends Cubit<HomeStates> {
 
       emit(AddOrDeleteItemInCartSuccessState());
     }).catchError((onError) {
-      print('Add Or Delete Item In Cart Error is : $onError');
+      log('Add Or Delete Item In Cart Error is : $onError');
       emit(AddOrDeleteItemInCartErrorState());
     });
   }
@@ -311,7 +311,7 @@ class HomeBloc extends Cubit<HomeStates> {
   }) {
     emit(CardPaymentLoadingState());
     paymentIntentInputModel = PaymentIntentInputModel(
-      customerId: customerId,
+      customerId: CacheHelper.getData(key: profileModel!.data!.email),
       amount: amount,
       currency: 'USD',
     );

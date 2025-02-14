@@ -10,35 +10,35 @@ Color defualLightColor = const Color.fromARGB(255, 249, 89, 0);
 
 Color defualtDarkColor = const Color.fromARGB(255, 35, 59, 93);
 
-String LOGIN = 'login';
+String lOGIN = 'login';
 
-String REGISTER = 'register';
+String rEGISTER = 'register';
 
-String HOME = 'home';
+String hOME = 'home';
 
-String CATIGORIES = 'categories';
+String cATIGORIES = 'categories';
 
-String FAVORITES = 'favorites';
+String fAVORITES = 'favorites';
 
-String PROFILE = 'profile';
+String pROFILE = 'profile';
 
-String UPDATE_PROFILE = 'update-profile';
+String uPDATEPROFILE = 'update-profile';
 
-String SEARCH = 'products/search';
+String sEARCH = 'products/search';
 
-String LOGOUT = 'logout';
+String lOGOUT = 'logout';
 
-String PRODUCT_DETAILS = 'products';
+String pRODUCTDETAILS = 'products';
 
-String CARTS = 'carts';
+String cARTS = 'carts';
 
-String AddOrDelelteItemInCart = 'carts';
+String addOrDelelteItemInCart = 'carts';
 
-String UpdateCart = 'carts/';
+String updateCart = 'carts/';
 
 String token = CacheHelper.getData(key: 'token');
 
-String customerId=CacheHelper.getData(key: 'customerId');
+
 
 void showToast({
   required String msg,

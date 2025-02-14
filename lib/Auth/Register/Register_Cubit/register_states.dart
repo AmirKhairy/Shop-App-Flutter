@@ -8,6 +8,12 @@ class RegisterChangeRegisterPasswordIcon extends RegisterStates {}
 
 class RegisterLoadingApiState extends RegisterStates {}
 
+class CreateStripeCustomerLoadingDataState extends RegisterStates {}
+
+class CreateStripeCustomerSuccessDataState extends RegisterStates {}
+
+class CreateStripeCustomerErrorDataState extends RegisterStates {}
+
 class RegisterSuccessApiState extends RegisterStates {
   final RegisterModel registerModel;
 

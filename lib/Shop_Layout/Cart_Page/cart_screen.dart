@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Data_Models/get_carts_model/cart_item.dart';
 import 'package:shop_app/Shared/components.dart';
 import 'package:shop_app/Shared/constants.dart';
-import 'package:shop_app/Shared/payment/stripe_service.dart';
+import 'package:shop_app/Shop_Layout/Cart_Page/thank_you_screen.dart';
 import 'package:shop_app/Shop_Layout/HomeCubit/home_bloc.dart';
 import 'package:shop_app/Shop_Layout/HomeCubit/home_states.dart';
 import 'package:shop_app/Shop_Layout/Home_Page/product_details_screen.dart';
@@ -36,6 +36,14 @@ class CartScreen extends StatelessWidget {
         }
         if (state is EditItemQuantityErrorState) {
           showToast(msg: 'Error Updating Quantity', color: Colors.green);
+        }
+        if (state is CardPaymentSuccessState) {
+          showToast(msg: 'Payment Done Successfully', color: Colors.green);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>  ThankYouScreen(),
+            ),
+          );
         }
       },
       builder: (context, state) {

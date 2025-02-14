@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/Data_Models/stripe_models/ephemeral_key_model/ephemeral_key_model.dart';
 import 'package:shop_app/Data_Models/stripe_models/init_payment_sheet_model/init_payment_sheet_model.dart';
@@ -64,7 +65,7 @@ class StripeService {
           'customer': customerId,
         },
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': Headers.formUrlEncodedContentType,
           'Authorization':
               'Bearer sk_test_51QqbKUH937DsZA0GMFpdJi6L15PRrxspAT7oBAyySdD0vgKl8ThxRdlqX3FiX1iBgRXG0jO6Ram7D26LmG972FTp00SfaEWd1Z',
           'Stripe-Version': '2025-01-27.acacia',
