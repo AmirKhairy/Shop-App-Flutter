@@ -69,8 +69,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         },
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization':
-              'Bearer sk_test_51QqbKUH937DsZA0GMFpdJi6L15PRrxspAT7oBAyySdD0vgKl8ThxRdlqX3FiX1iBgRXG0jO6Ram7D26LmG972FTp00SfaEWd1Z', // Load from env
+          'Authorization': 'Bearer $secretKey', // Load from env
         },
       );
 

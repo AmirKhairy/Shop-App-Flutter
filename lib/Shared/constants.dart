@@ -38,6 +38,10 @@ String updateCart = 'carts/';
 
 String token = CacheHelper.getData(key: 'token');
 
+String publishableKey = 'pk_test_51QqbKUH937DsZA0GBfn1dFoRyp5NJKB7X1OEb7mEZm95BAAEzgBcZzkoZl3ASsHOazYs9v2ApT9eyRlOa8uAEU0U00qSbBJNeI';
+
+String secretKey = 'sk_test_51QqbKUH937DsZA0GMFpdJi6L15PRrxspAT7oBAyySdD0vgKl8ThxRdlqX3FiX1iBgRXG0jO6Ram7D26LmG972FTp00SfaEWd1Z';
+
 
 
 void showToast({

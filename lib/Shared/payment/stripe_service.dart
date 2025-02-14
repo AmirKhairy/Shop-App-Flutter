@@ -6,6 +6,7 @@ import 'package:shop_app/Data_Models/stripe_models/ephemeral_key_model/ephemeral
 import 'package:shop_app/Data_Models/stripe_models/init_payment_sheet_model/init_payment_sheet_model.dart';
 import 'package:shop_app/Data_Models/stripe_models/payment_intent_input_model/payment_intent_input_model.dart';
 import 'package:shop_app/Data_Models/stripe_models/payment_intent_model/payment_intent_model.dart';
+import 'package:shop_app/Shared/constants.dart';
 import 'package:shop_app/Shared/payment/stripe_api_service.dart';
 
 class StripeService {
@@ -19,7 +20,7 @@ class StripeService {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization':
-              'Bearer sk_test_51QqbKUH937DsZA0GMFpdJi6L15PRrxspAT7oBAyySdD0vgKl8ThxRdlqX3FiX1iBgRXG0jO6Ram7D26LmG972FTp00SfaEWd1Z',
+              'Bearer $secretKey',
         },
       );
       var payementIntentModel = PaymentIntentModel.fromJson(response.data);
@@ -67,7 +68,7 @@ class StripeService {
         headers: {
           'Content-Type': Headers.formUrlEncodedContentType,
           'Authorization':
-              'Bearer sk_test_51QqbKUH937DsZA0GMFpdJi6L15PRrxspAT7oBAyySdD0vgKl8ThxRdlqX3FiX1iBgRXG0jO6Ram7D26LmG972FTp00SfaEWd1Z',
+              'Bearer $secretKey',
           'Stripe-Version': '2025-01-27.acacia',
         },
       );

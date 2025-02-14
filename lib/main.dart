@@ -32,7 +32,7 @@ void main() async {
   }
 
   Stripe.publishableKey =
-      'pk_test_51QqbKUH937DsZA0GBfn1dFoRyp5NJKB7X1OEb7mEZm95BAAEzgBcZzkoZl3ASsHOazYs9v2ApT9eyRlOa8uAEU0U00qSbBJNeI';
+      publishableKey;
   runApp(MyApp(
     openScreen: openScreen,
   ));

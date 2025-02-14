@@ -41,7 +41,7 @@ class CartScreen extends StatelessWidget {
           showToast(msg: 'Payment Done Successfully', color: Colors.green);
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) =>  ThankYouScreen(),
+              builder: (context) =>  const ThankYouScreen(),
             ),
           );
         }
